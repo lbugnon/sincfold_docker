@@ -11,3 +11,9 @@
     python
     from main import main
     html, ctfile, fastafile = main('CGAACCGUGUCAGGUCCGGAAGGAAGCAGCACUAAG', 'srp_Carb.hydr._CP000141')
+
+## Register 
+
+    docker login
+    docker tag sincfold DOCKER_USERNAME/sincfold 
+    docker push DOCKER_USERNAME/sincfold
