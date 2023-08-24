@@ -43,6 +43,17 @@ RUN install_python_module matplotlib
 
 RUN ln -s ${python_env}/bin/python /usr/local/bin/python
 
+# RNAstructure
+RUN wget -q http://rna.urmc.rochester.edu/Releases/current/RNAstructureLinuxTextInterfaces64bit.tgz
+RUN tar xfz RNAstructureLinuxTextInterfaces64bit.tgz
+
+ENV rnastructure_source_path = "/RNAstructure/"
+ENV rnastructure_install_path = "/usr/local/RNAstructure/"
+
+WORKDIR "/RNAstructure"
+RUN make install
+WORKDIR "/"
+
 # Create a new user "developer".
 # It will get access to the X11 session in the host computer
 
