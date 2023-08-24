@@ -37,15 +37,9 @@ COPY install_python_module /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/install_python_module
 
-<<<<<<< HEAD
 RUN install_python_module pandas
 RUN install_python_module sincfold
 RUN install_python_module matplotlib
-
-=======
-RUN install_python_module pandas==2.0.2
-RUN install_python_module sincfold==0.4
->>>>>>> bcad7e68fc8e76d3865841e0a715ca9c13dcfb19
 
 RUN ln -s ${python_env}/bin/python /usr/local/bin/python
 

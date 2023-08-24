@@ -2,4 +2,4 @@
 
     docker build -t sincfold .
 
-    docker run -it --volume="/home/leandro/docker_tmp/:/sincfold:z" sincfold bash
+    docker run -it --volume="/TMP_PATH/:/sincfold:z" sincfold bash
