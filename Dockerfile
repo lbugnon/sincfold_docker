@@ -37,25 +37,8 @@ COPY install_python_module /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/install_python_module
 
-RUN install_python_module pip3==23.1.2
-RUN install_python_module setuptools==68.0.0
-RUN install_python_module wheel==0.40.0
-RUN install_python_module nltk==3.8.1
-RUN install_python_module flair==0.12.2
-RUN install_python_module networkx==3.1
-RUN install_python_module transformers==4.30.2
-RUN install_python_module pandas==2.0.3
-RUN install_python_module biopython==1.81
-RUN install_python_module numpy==1.25.1
-RUN install_python_module seaborn==0.12.2
-RUN install_python_module scipy==1.11.1
-RUN install_python_module matplotlib==3.7.2
-RUN install_python_module torch==2.0.1
-RUN install_python_module scikit-learn==1.3.0
-RUN install_python_module ipdb==0.13.13
-
-RUN install_python_module sincfold
-
+RUN install_python_module pandas==2.0.2
+RUN install_python_module sincfold==0.4
 
 RUN ln -s ${python_env}/bin/python /usr/local/bin/python
 
