@@ -2,4 +2,12 @@
 
     docker build -t sincfold .
 
-    docker run -it --volume="/TMP_PATH/:/sincfold:z" sincfold bash
+    docker run -it --volume="/webdemo/:/sincfold:z" sincfold bash
+
+## Run 
+
+    source python_env/bin/activate
+
+    python
+    from main import main
+    html, ctfile, fastafile = main('CGAACCGUGUCAGGUCCGGAAGGAAGCAGCACUAAG', 'srp_Carb.hydr._CP000141')
