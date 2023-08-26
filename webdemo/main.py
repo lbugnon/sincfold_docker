@@ -1,26 +1,19 @@
 # -*- coding: utf-8 -*-
-"""
-
-@author: mgerard
-"""
 import pandas as pd
 import subprocess
 import shutil
 from varnaapi import Structure
 
 def main(query_sequence, id_name):
-    '''
-    Esta función es llamada por el webdemo para generar
-    la interfaz gráfica y para ejecutar luego el webdemo.
-    '''
 
-    # CONSTRUYO ARCHIVO PARA PREDICCION ---> CSV que lee sincfold
     data = {'id': [id_name], 'sequence': [f'{query_sequence}']}
     df = pd.DataFrame(data=data)
     df.to_csv('to_predict.csv', index=False)
 
     shutil.rmtree('output', ignore_errors=True)
-    subprocess.call(["export OMP_NUM_THREADS=1; sincFold --quiet pred to_predict.csv -o output"], shell=True)
+    
+    subprocess.call(["export OMP_NUM_THREADS=1; sincFold -j 0 --quiet pred to_predict.csv -w weights.pmt -o output"], shell=True)
+    
     ct_file = f'output/{id_name}.ct'
 
     # Get dot-bracket structure from ct

@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	    python3-setuptools\
 	    python3-dev\
 	    imagemagick\
-      openjdk-18-jre\
+      	openjdk-18-jre\
 	    wget && \
     rm -rf /var/lib/apt/lists/*    
 
@@ -44,6 +44,7 @@ WORKDIR "/"
 
 ENV uid=1000
 ENV gid=${uid}
+# webdemobuilder usa 1 thread
 ENV OPENBLAS_NUM_THREADS=1
 ENV OMP_NUM_THREADS=1
 
