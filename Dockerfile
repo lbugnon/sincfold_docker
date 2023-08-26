@@ -23,6 +23,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
   python3-pip \
   python3-setuptools\
   imagemagick\
+  openjdk-18-jre\
   wget && \
   rm -rf /var/lib/apt/lists/*
 
@@ -40,6 +41,7 @@ RUN chmod +x /usr/local/bin/install_python_module
 RUN install_python_module pandas
 RUN install_python_module sincfold
 RUN install_python_module matplotlib
+RUN install_python_module varnaapi
 
 RUN ln -s ${python_env}/bin/python /usr/local/bin/python
 

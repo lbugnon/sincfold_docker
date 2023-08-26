@@ -7,6 +7,7 @@
 import pandas as pd
 import subprocess
 import shutil
+from varnaapi import Structure
 
 def main(query_sequence, id_name):
     '''
@@ -43,9 +44,14 @@ def main(query_sequence, id_name):
         with open(filename_html, 'w', encoding="utf-8") as fp:
             fp.writelines(html)
 
+    # varna 
+    png_file  = f"output/{id_name}.png"
+    v = Structure(sequence=query_sequence, structure=dotbracket)
+    v.update(resolution=10)
+    v.savefig(png_file)
     #=======================================
     
-    return filename_html, ct_file, dotbracket_file
+    return filename_html, ct_file, dotbracket_file, png_file
 #=============================================
 
 #=====================================================
