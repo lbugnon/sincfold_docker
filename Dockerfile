@@ -1,6 +1,4 @@
 FROM ubuntu:22.04
-# Base desde mfgerard/cariopynet 
-MAINTAINER Leandro Bugnon <lbugnon@sinc.unl.edu.ar>
 
 ENV python_env="/python_env"
 
@@ -39,6 +37,7 @@ COPY install_python_module /usr/local/bin/
 RUN chmod +x /usr/local/bin/install_python_module
 
 RUN install_python_module pandas
+RUN install_python_module "torch --index-url https://download.pytorch.org/whl/cpu"
 RUN install_python_module sincfold
 RUN install_python_module matplotlib
 RUN install_python_module varnaapi
@@ -48,6 +47,7 @@ RUN ln -s ${python_env}/bin/python /usr/local/bin/python
 # RNAstructure
 RUN wget -q http://rna.urmc.rochester.edu/Releases/current/RNAstructureLinuxTextInterfaces64bit.tgz
 RUN tar xfz RNAstructureLinuxTextInterfaces64bit.tgz
+RUN rm RNAstructureLinuxTextInterfaces64bit.tgz
 
 WORKDIR "/RNAstructure"
 RUN make install
