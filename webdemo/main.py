@@ -3,7 +3,6 @@
 
 @author: mgerard
 """
-
 import pandas as pd
 import subprocess
 import shutil
@@ -21,7 +20,7 @@ def main(query_sequence, id_name):
     df.to_csv('to_predict.csv', index=False)
 
     shutil.rmtree('output', ignore_errors=True)
-    subprocess.call(["sincFold pred to_predict.csv -o output"], shell=True)
+    subprocess.call(["export OMP_NUM_THREADS=1; sincFold --quiet pred to_predict.csv -o output"], shell=True)
     ct_file = f'output/{id_name}.ct'
 
     # Get dot-bracket structure from ct
