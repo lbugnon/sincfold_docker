@@ -6,6 +6,8 @@ FROM ubuntu:22.04
 #RUN DEBIAN_FRONTEND=noninteractive \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     	    build-essential \
+	    default-jre\
+	    #openjdk-18-jre\
 	    pkg-config \
 	    gfortran \
 	    libatlas-base-dev \
@@ -18,8 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	    python3-setuptools\
 	    python3-dev\
 	    imagemagick\
-      	openjdk-18-jre\
-	    wget && \
+      	wget && \
     rm -rf /var/lib/apt/lists/*    
 
 #=============================
@@ -28,9 +29,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip3 install -U pip 
 RUN pip3 install -U wheel
 RUN pip3 install -U pandas
-RUN pip3 install -U torch --index-url https://download.pytorch.org/whl/cpu
+# torch sin cuda
+RUN pip3 install -U torch --index-url https://download.pytorch.org/whl/cpu 
 RUN pip3 install -U matplotlib
-RUN pip3 install -U varnaapi
 RUN pip3 install -U sincfold
 
 # RNAstructure

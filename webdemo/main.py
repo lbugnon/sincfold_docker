@@ -2,7 +2,7 @@
 import pandas as pd
 import subprocess
 import shutil
-from varnaapi import Structure
+import os 
 
 def main(query_sequence, id_name):
 
@@ -38,9 +38,7 @@ def main(query_sequence, id_name):
 
     # varna 
     png_file  = f"output/{id_name}.png"
-    v = Structure(sequence=query_sequence, structure=dotbracket)
-    v.update(resolution=10)
-    v.savefig(png_file)
+    os.system(f'java -cp VARNAv3-93.jar  fr.orsay.lri.varna.applications.VARNAcmd -sequenceDBN {query_sequence} -structureDBN {dotbracket} -o  {png_file} -resolution 10.0')
     #=======================================
     
     return filename_html, ct_file, dotbracket_file, png_file
