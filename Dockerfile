@@ -58,6 +58,7 @@ WORKDIR "/"
 
 ENV uid=1000
 ENV gid=${uid}
+ENV OPENBLAS_NUM_THREADS=1
 
 COPY init.sh /
 COPY create_user.sh /
