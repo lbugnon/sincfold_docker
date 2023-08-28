@@ -57,7 +57,9 @@ def main(id_name, sequence):
             dotbracket = ""
         if dotbracket:
             
-            sp.run(f'java -Xmx64m -cp {VARNA_PATH} fr.orsay.lri.varna.applications.VARNAcmd -sequenceDBN {sequence} -structureDBN "{dotbracket}" -o  {structure_draw} -resolution {resolution}', shell=True)
+            sp.run(f'java -XX:+UseSerialGC  -cp {VARNA_PATH} fr.orsay.lri.varna.applications.VARNAcmd -sequenceDBN {sequence} -structureDBN "{dotbracket}" -o  {structure_draw} -resolution {resolution}', shell=True)
+
+            shutil.copy(structure_draw, f"output_img.png")
             
             with open(fasta_file, "w") as f:
                 f.write(f">{id_name}\n{sequence}\n{dotbracket}")
