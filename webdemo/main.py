@@ -6,18 +6,18 @@ import subprocess as sp
 import shutil 
 import os
 from torch.utils.data import DataLoader
-from sincfold.utils import ct2dot, write_ct, draw_structure
+from sincfold.utils import ct2dot, write_ct, ct2png
 from sincfold.embeddings import NT_DICT
 from sincfold.dataset import SeqDataset, pad_batch
 from sincfold.model import sincfold
-from sincfold.utils import VARNA_PATH
 
 def main(id_name, sequence):
+    id_name = id_name.strip().replace(" ", "_")
     sequence = sequence.upper().strip()
     shutil.rmtree("output", ignore_errors=True)
     os.mkdir("output")
     ct_file = f"output/{id_name}.ct"
-    structure_draw = f"output/{id_name}.png"
+    structure_draw = f"output/{id_name}.svg"
     fasta_file = f"output/{id_name}.fasta"
     html_file = f"output/{id_name}.html"
     msg = "Completed."
@@ -25,12 +25,6 @@ def main(id_name, sequence):
     config= {"device": "cpu", "batch_size": 4,  "use_restrictions": False, 
             "max_len": 512, "verbose": False, "cache_path": None}
 
-    resolution = 1
-    if len(sequence)>100:
-        resolution = 10
-    elif len(sequence)>50:
-        resolution = 5
-    
     nt_set = set([i for item  in list(NT_DICT.values()) for i in item] + list(NT_DICT.keys()))
     if set(sequence).issubset(nt_set):
         pred_file = f"input.csv"
@@ -57,10 +51,7 @@ def main(id_name, sequence):
             dotbracket = ""
         if dotbracket:
             
-            sp.run(f'java -XX:+UseSerialGC  -cp {VARNA_PATH} fr.orsay.lri.varna.applications.VARNAcmd -sequenceDBN {sequence} -structureDBN "{dotbracket}" -o  {structure_draw} -resolution {resolution}', shell=True)
-
-            shutil.copy(structure_draw, f"output_img.png")
-            
+            ct2png(structure_draw, ct_file)
             with open(fasta_file, "w") as f:
                 f.write(f">{id_name}\n{sequence}\n{dotbracket}")
 
@@ -77,7 +68,7 @@ def main(id_name, sequence):
                     fp.writelines(html)
 
         else:
-            msg = f"CT conversion failed (check CT file)"
+            msg = f"CT to dotbracket conversion failed (check CT file)"
             structure_draw = ""
             fasta_file = ""
                     
@@ -88,11 +79,6 @@ def main(id_name, sequence):
         ct_file = ""
 
     return structure_draw, dotbracket, fasta_file, ct_file, msg, html_file 
-
-# Examples:
-# srp_Bruc.abor._AE017223, AACCGGGUCAGGUCCGGAAGGAAGCAGCCCUAA 
-# #5s_Chlorobium-limicola-2, CCACGGCGACUAUAUCCCUGGUGUUCACCUCUUCCCAUUCCGAACAGAGUCGUUAAGCCCAGGAGAGCCGAUGGUACUGCUUUAUUGCGGGAGAGUAGGUCGUCGCCGAGU
-# 16s_C.elegans_domain2, GAUAAACCUUUAGCAAUAAACGAAAGUUUAACUAAGCCAUACUAACCCCAGGGUUGGUCAAUUUCGUGCCAGCCACCGCGGUCACACGAUUAACCCAAGCCAAUAGAAAUCGGCGUAAAGAGUGUUUUAGAUCAAUCCCCCAAUAAAGCUAAAAUUCACCUG
 
 #=====================================================
 def draw_RNAseq(filename, sequence, folding):

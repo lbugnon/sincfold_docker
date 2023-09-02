@@ -6,7 +6,6 @@ FROM ubuntu:22.04
 #RUN DEBIAN_FRONTEND=noninteractive \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     	    build-essential \
-	    default-jre\
 	    pkg-config \
 	    gfortran \
 	    libatlas-base-dev \
@@ -27,7 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #=============================
 # torch sin cuda
 RUN pip3 install -U torch --index-url https://download.pytorch.org/whl/cpu 
-RUN pip3 install -U sincfold
+RUN pip3 install sincfold==0.10
 
 ENV uid=1000
 ENV gid=${uid}

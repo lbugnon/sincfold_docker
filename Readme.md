@@ -2,7 +2,7 @@
 
     docker build -t sincfold .
 
-    docker run -it --volume="/webdemo/:/sincfold:z" sincfold bash
+    docker run -it --volume="./webdemo/:/sincfold:z" sincfold bash
 
 ## Run 
 
@@ -10,7 +10,12 @@
     cd sincfold
     python
     from main import main
-    html, ctfile, fastafile = main('CGAACCGUGUCAGGUCCGGAAGGAAGCAGCACUAAG', 'srp_Carb.hydr._CP000141')
+    structure_draw, dotbracket, fasta_file, ct_file, msg, html_file = main('srp_Bruc.abor._AE017223', 'AACCGGGUCAGGUCCGGAAGGAAGCAGCCCUAA')  
+    
+    main('5s_Chlorobium-limicola-2', 'CCACGGCGACUAUAUCCCUGGUGUUCACCUCUUCCCAUUCCGAACAGAGUCGUUAAGCCCAGGAGAGCCGAUGGUACUGCUUUAUUGCGGGAGAGUAGGUCGUCGCCGAGU')
+
+    main('16s_C.elegans_domain2', 'GAUAAACCUUUAGCAAUAAACGAAAGUUUAACUAAGCCAUACUAACCCCAGGGUUGGUCAAUUUCGUGCCAGCCACCGCGGUCACACGAUUAACCCAAGCCAAUAGAAAUCGGCGUAAAGAGUGUUUUAGAUCAAUCCCCCAAUAAAGCUAAAAUUCACCUG')
+
 
 ## Register 
 
